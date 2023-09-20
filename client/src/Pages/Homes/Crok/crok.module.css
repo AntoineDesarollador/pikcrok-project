@@ -1,0 +1,136 @@
+
+
+@font-face {
+    font-family: "knewave";
+    src: url(../../../assets/fonts/knewave/knewave.ttf);
+}
+
+@font-face {
+    font-family: "whitemonkey";
+    src: url(../../../assets/fonts/whitemonkey/WhiteMonkey-Regular.ttf);
+}
+
+#allCrok {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    background-color: wheat;
+    padding: 30px 10px;
+    text-align: center;
+}
+
+
+
+#allCrok div {
+    margin-top: 15px;
+    padding: 5px;
+    /* text-decoration: none; */
+    /* text-decoration-color: aquamarine; */
+    color: black;
+    text-align: center;
+    text-transform: capitalize;
+    width: 19%;
+    text-decoration: none;
+}
+
+#allCrok h2 {
+
+    width: 100%;
+    margin: 0px;
+}
+
+
+#crok {
+    margin-top: 15px;
+    flex-direction: column;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    align-items: center;
+    display: flex;
+    background-color: #ffffff;
+    width: 100%;
+    position: relative;
+}
+
+#crok h3, #crok h4 {
+    font-size: 20px;
+    margin: 10px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#crok h4 {
+    font-size: 15px;
+    text-align: center;
+    margin-top: 20px;}
+
+#crok button {
+    position: absolute;
+    bottom: 5%;
+}
+
+
+h5 {
+    text-align: center;
+    width: 93%;
+}
+
+img{
+
+    width: 100%;
+    object-fit: cover;
+    height: 180px;
+}
+
+
+#description {
+    background-color: rgb(255 255 255 / 40%);
+    border: 2px solid wheat;
+    padding: 5px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    display: table;
+}
+
+#description p {
+    display: table-cell;
+    vertical-align: middle;
+    margin: 0px;
+    height: 60px;
+    /* text-decoration: dashed; */
+    font-style: italic;
+    color: rgb(0, 0, 0);
+}
+
+
+
+
+@media only screen and (max-width: 768px) {
+
+    #allCrok  {
+
+        flex-direction: column;
+    }
+    
+
+#allCrok  div {
+    margin-top: 15px;
+    padding: 5px;
+    /* text-decoration: none; */
+    /* text-decoration-color: aquamarine; */
+    color: black;
+    text-align: center;
+    text-transform: capitalize;
+    width: 95%;
+    text-decoration: none;
+}
+
+ 
+
+
+}
+
+
+
+

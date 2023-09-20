@@ -1,0 +1,206 @@
+
+
+@font-face {
+    font-family: "knewave";
+    src: url(../../assets/fonts/knewave/knewave.ttf);
+}
+
+@font-face {
+    font-family: "whitemonkey";
+    src: url(../../assets/fonts/whitemonkey/WhiteMonkey-Regular.ttf);
+}
+
+h1, h2 {
+    font-family: "knewave", sans-serif;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+a {
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+    text-decoration: none;
+}
+
+#header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px;
+}
+
+#hour {
+    position: relative;
+    z-index: 1;
+}
+
+#hour ul {
+    width: 8%;
+    top: 10%;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin: 0px auto;
+    position: absolute;
+    padding: 5px 8px;
+    position: fixed;
+    right: 1.5%;
+    background: rgba(255,255,255, 0.4);
+}
+
+#hour li {
+    list-style: none;
+    font-style: italic;
+    /* font-weight: bold; */
+    display: flex;
+    color: black;
+    align-items: center;
+}
+
+
+
+#open::before {
+    content: "\2022";
+    color: greenyellow;
+    font-size: 32px;
+    font-weight: bold;
+    display: inline-block;
+    width: 0.5em;
+    text-shadow: 0px 0px 1px black;
+    -webkit-text-stroke: 0.5px #000;
+}
+
+#openSoon::before {
+    content: "\2022";
+    color: green;
+    font-size: 32px;
+    font-weight: bold;
+    display: inline-block;
+    width: 0.5em;
+    text-shadow: 0px 0px 1px black;
+    -webkit-text-stroke: 0.5px #000;
+}
+
+#closeSoon::before {
+    content: "\2022";
+    color: rgb(255, 225, 0);
+    font-size: 32px;
+    font-weight: bold;
+    display: inline-block;
+    width: 0.5em;
+    text-shadow: 0px 0px 1px black;
+    -webkit-text-stroke: 0.5px #000;
+}
+
+#close::before {
+    content: "\2022";
+    color: rgb(255, 10, 10);
+    font-size: 32px;
+    font-weight: bold;
+    display: inline-block;
+    width: 0.5em;
+    text-shadow: 0px 0px 1px black;
+    -webkit-text-stroke: 0.5px #000;
+}
+
+#logoHeader { 
+    margin-right: 60px; 
+}
+
+#logoHeader img {
+    width: 150px;
+    height: 150px;
+    clip-path: circle(50%);
+    border: 8px solid rgb(0, 74, 173);
+}
+
+
+
+#menuHeader nav {
+    display: flex;
+
+}
+
+
+#menuHeader nav a {
+    text-decoration: none;
+    margin-right: 10px;
+    font-size: 17px;
+    letter-spacing: 5px;    
+    /* border-left: 2px solid wheat; */
+    padding: 10px;
+    color: rgb(0, 74, 173);
+}
+
+.navHeader {
+    border-right: 3px solid wheat;
+}
+
+#menuHeader nav a:hover{
+text-decoration: underline;
+text-decoration-color: wheat;
+font-weight: bold;
+}
+
+#blog {
+    border: none;
+}
+
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+
+
+    #header {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0px;
+    }
+
+    #logoHeader {
+        margin-right: 0px; 
+    }
+
+    #hour ul {
+        width: 20%;
+
+        border-top-left-radius: none; 
+        border-bottom-left-radius: none; 
+        margin: 0px auto;
+        position: block;
+        padding: 4px;
+        position: fixed;
+
+        background: rgba(255,255,255, 0.4);
+    }
+
+    #logoHeader img {
+        width: 50px;
+        height: 50px;
+        clip-path: circle(50%);
+        border: 8px solid rgb(0, 74, 173);
+    }
+
+    #menuHeader {
+        width: 90%;
+    }
+
+    #menuHeader nav a {
+        text-decoration: none;
+        font-size: 12px;
+        letter-spacing: 3px;
+        padding: 5px;
+        margin-top: 10px;
+        color: rgb(0, 74, 173);
+    }
+
+
+}
+
+
