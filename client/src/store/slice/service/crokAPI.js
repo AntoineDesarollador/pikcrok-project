@@ -15,7 +15,7 @@ export const crokApi = createApi({
 
                 return { data: { crok } };
             },
-            providesTags: ["crokPosted", "categoryPosted", "deletedCrok"],
+            providesTags: ["crokPosted", "categoryPosted", "crokUpdated", "deletedCrok"],
         }),
         getCrokPackaging: builder.query({
             query: (id) => `crok/${id}`,

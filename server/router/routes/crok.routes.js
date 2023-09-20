@@ -8,13 +8,13 @@ import {all, one, update, removeCrok, createCrok} from '../../controller/Items/c
 
 
 
-router.get("/crok", all);
-router.get("/crok/:id", one);
+router.get("/", all);
+router.get("/:id", one);
 
-router.post("/crok/add", createCrok)
+router.post("/add", createCrok)
 
-router.put("/crok/:id", update);
-router.delete("/crok/:id", removeCrok);
+router.put("/:id", update);
+router.delete("/:id", removeCrok);
 
 
 export default router

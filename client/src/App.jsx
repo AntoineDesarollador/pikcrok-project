@@ -17,16 +17,21 @@ import ArticleOne from "./Pages/Blog/Article/Article1";
 
 import CroqueList from "./Pages/Admin/Components/CrokList";
 
+import AddCroqueForm from "./Pages/Admin/Components/AddCroqueForm";
+
 import Us from "./Pages/About/About"
+
 
 
 function App() {
   const location = useLocation();
   console.log(location);
   console.log(store)
+ 
 
 
   if (location.pathname.includes("/admin")) {
+    console.log(AddCroqueForm)
       return (
         
         <>

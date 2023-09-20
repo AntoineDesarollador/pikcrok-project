@@ -66,10 +66,12 @@ export const update = async (req, res) => {
     try {
 
         const query = "UPDATE crok SET title= ?, img= ?, description= ?, prix= ? WHERE id= ?"
-        const [result] = await Query.write(query, req.body)
 
         const id = req.params.id
         const crokUpdated = {...req.body, id}
+        const [result] = await Query.write(query, crokUpdated)
+
+        
 
         if(result){
             const msg = "Catégorie modifiée.";
@@ -115,6 +117,7 @@ export const createCrok = async (req,res) => {
         form.parse(req, async(err, fields, files) => {
             const {
                 title,
+                img,
                 description,
                 prix,
 
@@ -139,7 +142,7 @@ export const createCrok = async (req,res) => {
             if(result){
                 
                 const msg = "crok ajouté";
-                res.json(success(msg, crokCreated))
+                res.json(success(msg, dataQuery1))
             }else throw Error("Catégorie non supprimée, probable erreur de syntaxe dans l'objet.");
                 
         });
