@@ -1,9 +1,11 @@
 
+
+
 import React from 'react';
 
 import DeleteCroqueModal from './DeleteCroqueModal';
 import EditCroqueForm from "./EditCroqueForm"
-import AddCroqueForm from './AddCroqueForm';
+import Form from './AddCroqueForm';
 
 
 
@@ -14,7 +16,7 @@ function CroqueList({data: {crok}}) {
         <>
       <div>
         <h2>Liste des croques-monsieur</h2>
-        <AddCroqueForm />
+        <Form />
         
  
         <table>

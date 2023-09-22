@@ -11,7 +11,7 @@ import {all, one, update, removeCrok, createCrok} from '../../controller/Items/c
 router.get("/", all);
 router.get("/:id", one);
 
-router.post("/add", createCrok)
+router.post("/upload", createCrok)
 
 router.put("/:id", update);
 router.delete("/:id", removeCrok);

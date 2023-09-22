@@ -102,10 +102,9 @@ export const removeCrok  = async (req,res) => {
     }
 }
 
-export const createCrok = async (req,res) => {
 
+export const createCrok = async (req, res) => {
     try {
-
         const form = formidable({
             uploadDir: "public/img/crok",
             keepExtensions: true,
@@ -114,47 +113,43 @@ export const createCrok = async (req,res) => {
             minFileSize: 10,
         });
 
-        form.parse(req, async(err, fields, files) => {
-            const {
-                title,
-                img,
-                description,
-                prix,
+        form.parse(req, async (err, fields, files) => {
+            if (err) {
+                console.error("Erreur lors de l'analyse du formulaire :", err);
+                res.status(500).json(error("Erreur lors de l'analyse du formulaire"));
+                return;
+            }
 
-            } = fields;
+            // Affiche les champs du formulaire
+            console.log("Champs du formulaire :", fields);
 
+            // Affiche les fichiers téléchargés
+            console.log("Fichiers téléchargés :", files);
 
+            // Votre code pour insérer les données dans la base de données
+            const query = "INSERT INTO crok (title, img, description, prix) VALUES (?, ?, ?, ?)";
+            const { title, img, description, prix } = fields;
             const dataQuery1 = {
                 title,
+                img: Object.keys(files).length === 0 ? "no-picture.jpg" : files.img.newFilename,
                 description,
                 prix,
-                img: Object.keys(files).length === 0 ? "no-picture.jpg" : files.photo.newFilename
             };
 
+            // Insérez les données dans la base de données ici
+            const [result] = await Query.write(query, [dataQuery1.title, dataQuery1.img, dataQuery1.description, dataQuery1.prix]);
 
-            const query = "INSERT INTO crok (title, img, description, prix) VALUES (?, ?, ?, ?)"
-        
-            const [result] = await Query.write(query, dataQuery1);
-
-            const crokCreated = { ...req.body, ...{ created: new Date()}};
-
-
-            if(result){
-                
+            // Si l'insertion a réussi
+            if (result) {
                 const msg = "crok ajouté";
-                res.json(success(msg, dataQuery1))
-            }else throw Error("Catégorie non supprimée, probable erreur de syntaxe dans l'objet.");
-                
-        });
-        
-        } catch (err) {
-                throw Error(err);
+                res.status(201).json(success(msg, dataQuery1));
+            } else {
+                console.error("Erreur lors de l'insertion dans la base de données.");
+                res.status(500).json(error("Erreur lors de l'insertion dans la base de données"));
             }
-        };
-    
-
-    
-   
-    
-
-   
+        });
+    } catch (err) {
+        console.error("Erreur générale :", err);
+        res.status(500).json(error("Une erreur est survenue"));
+    }
+};

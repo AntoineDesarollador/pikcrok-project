@@ -22,7 +22,7 @@ export const crokApi = createApi({
         }),
         addCrok: builder.mutation({
             query: (payload) => ({
-                url: "/crok/add",
+                url: "/crok/upload",
                 method: "post",
                 body: payload,
             }),

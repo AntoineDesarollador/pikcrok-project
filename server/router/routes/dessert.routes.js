@@ -11,7 +11,7 @@ import {allDessert, one, update, removeDessert, createDessert} from '../../contr
 router.get("/dessert", allDessert);
 router.get("/dessert/:id", one);
 
-router.post("/dessert/add", createDessert)
+router.post("/add", createDessert)
 
 router.put("/dessert/:id", update);
 router.delete("/dessert/:id", removeDessert);

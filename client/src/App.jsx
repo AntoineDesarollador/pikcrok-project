@@ -1,6 +1,7 @@
 
 
 
+
 import React from "react"
 import HOC from "./Components/HOC/GetData";
 
@@ -92,4 +93,3 @@ function App() {
 }
 
 export default App;
-
