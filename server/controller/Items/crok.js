@@ -85,22 +85,23 @@ export const update = async (req, res) => {
 }
 
 
-export const removeCrok  = async (req,res) => {
+export const removeCrok = async (req, res) => {
     try {
-
-        const query = "DELETE FROM crok  WHERE id= ?"
+        const query = "DELETE FROM crok WHERE id = ?";
         const result = await Query.remove(query, req.params.id);
-      
-        if(result){
-            const msg = "crok supprimé";
-            res.json(success(msg))
-        }else throw Error("Catégorie non supprimée, probable erreur de syntaxe dans l'objet.");
 
-    
+        if (result) {
+            const msg = "Crok supprimé";
+            res.json(success(msg));
+        } else {
+            res.status(404).json({ error: "Crok non trouvé" });
+        }
     } catch (err) {
-        throw Error(err);
+        console.error("Erreur lors de la suppression du croque-monsieur :", err);
+        res.status(500).json({ error: "Erreur lors de la suppression du croque-monsieur" });
     }
-}
+};
+
 
 
 export const createCrok = async (req, res) => {

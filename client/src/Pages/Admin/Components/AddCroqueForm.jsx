@@ -18,6 +18,8 @@ function Form() {
 
     return (
         <form
+      
+        method="post"
             onSubmit={submitHandler}
             encType="multipart/form-data"
        
@@ -28,7 +30,7 @@ function Form() {
                 placeholder="nom du croque-monsieur"
             />
 
-<input type="file" name="image" id="photo" />
+<input type="file" name="img" id="photo" />
            
             <textarea
                 placeholder="description"

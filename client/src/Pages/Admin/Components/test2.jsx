@@ -1,49 +1,146 @@
 
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import {
+    useGetCrokPackagingQuery,
+    useUpdateCrokMutation,
+} from "../../store/serverApi";
+import styles from "./modifyTea.module.css";
 
-import React from "react";
-import style from "./form.module.css";
-import { useAddTeaMutation } from "../../../store/slice/service/teaAPI";
+function ModifyCrok() {
+  const { id } = useParams();
+  const [values, setValues] = useState({
+    crokId: 0,
+    title: "",
+    img: "",
+    description: "",
+    prix: 0,
+  });
 
-function Form({ data : crok }) {
-    const [addCrok, response] = useAddTeaMutation();
-    console.log(crok[0]);
-    const submitHandler = async (e) => {
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        console.log(formData);
-        await addCrok(formData);
+  // on recupère le thé à modifier
+  const { data: crok, isLoading: crokLoading } = useGetCrokPackagingQuery(id);
+ 
+  // le hook pour upgrade
+  const [updateTea, {isLoading}] = useUpdateCrokMutation();
 
 
-    };
+  // on set les valeurs par defaut aux anciennes valeurs 
 
-    return (
-        <form
-            onSubmit={submitHandler}
+
+  useEffect(() => {
+    if (!crokLoading) {
+
+      
+
+      setValues({
+        ...values,
+       
+        title: (crok.result[0]).title,
+        img: (crok.result[0]).img,
+        description: (crok.result[0]).description,
+        prix: (crok.result[0]).prix,
+      });
+    }
+  }, [crok]);
+
+
+
+  ///// gestion du formulaire //////////////////////////////
+
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const data = JSON.stringify({
+      
+        "title": values.title,
+        "img": values.img,
+        "description": values.description,
+        "prix": values.prix
+    
+    });
+
+    console.log ("data", data)
+
+    updateTea(
+      { id: values.crokId, data });
+
+    // reset des champs du form
+    setValues({
+      ...values,
+      title: "",
+      img: "",
+      description: "",
+      prix: "",
+    
+    });
+  };
+
+  ////////////////////////////////////////////////////////
+  return (
+    <div className="container">
+      {teaLoading || catLoading ? (
+        <p>Loading</p>
+      ) : (
+        <>
+          <h2>Modification d'un thé :</h2>
+          <form
+            className={styles.form}
+            onSubmit={handleSubmit}
+            method="POST "
             encType="multipart/form-data"
-            className={style.form}
-        >
+          >
+            <label className={styles.label} htmlFor="mainTitle">
+              titre
+            </label>
             <input
-                type="text"
-                name="title"
-                placeholder="nom du croque-monsieur"
+              type="text"
+              id="mainTitle"
+              name="title"
+              value={values.title}
+              onChange={handleChange}
             />
-
-<input type="file" name="image" id="photo" />
-           
-            <textarea
-                placeholder="description"
-                name="description"
-                id="description"
-                cols="30"
-                rows="10"
-            ></textarea>
-            
-
+            <label className={styles.label} htmlFor="subTitle">
+              sous-titre
+            </label>
+            <input
+              type="file"
+              id="subTitle"
+              name="subTitle"
+              value={values.img}
+              onChange={handleChange}
+            />
           
-            <input type="number" name="prix" id="price" placeholder="prix" />
-            <input type="submit" value="ajouter" />
-        </form>
-    );
+            
+            <label className={styles.label} htmlFor="description">
+              Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              rows={8}
+              cols={5}
+              value={values.description}
+              onChange={handleChange}
+            />
+             <input
+              type="number"
+              id="subTitle"
+              name="subTitle"
+              value={values.prix}
+              onChange={handleChange}
+            />
+            <br />
+            <input type="submit" value="Validation" /> <br />
+          </form>
+        </>
+      )}
+    </div>
+  );
 }
 
-export default Form;
+export default ModifyTea;

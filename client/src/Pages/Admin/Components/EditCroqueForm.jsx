@@ -2,63 +2,148 @@
 
 
 
-import React, { useState } from 'react';
-import { useUpdateCrokMutation } from '../../../store/slice/service/crokAPI';
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import {
+    useGetCrokPackagingQuery,
+    useUpdateCrokMutation,
+} from "../../../store/slice/service/crokAPI";
+import styles from "./modifyTea.module.css";
 
-function EditCroqueForm({ croque }) {
-  const [updatedCroque, setUpdatedCroque] = useState({ ...croque });
-  const [isEditing, setIsEditing] = useState(false);
-  const [updateCrok] = useUpdateCrokMutation();
+function ModifyCrok() {
+  const { id } = useParams();
+  const [values, setValues] = useState({
+    crokId: 0,
+    title: "",
+    img: "",
+    description: "",
+    prix: 0,
+  });
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-  };
+  // on recupère le thé à modifier
+  const { data: crok, isLoading: crokLoading } = useGetCrokPackagingQuery(id);
+ 
+  // le hook pour upgrade
+  const [updateTea, {isLoading}] = useUpdateCrokMutation();
 
-  const handleCancelEdit = () => {
-    setIsEditing(false);
-    setUpdatedCroque({ ...croque });
-  };
+
+  // on set les valeurs par defaut aux anciennes valeurs 
+
+
+  useEffect(() => {
+    if (!crokLoading) {
+
+      
+
+      setValues({
+        ...values,
+        crokId: (crok[0]).id,
+        title: (crok[0]).title,
+        img: (crok[0]).img,
+        description: (crok[0]).description,
+        prix: (crok[0]).prix,
+      });
+    }
+  }, [crok]);
+
+
+
+  ///// gestion du formulaire //////////////////////////////
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUpdatedCroque({ ...updatedCroque, [name]: value });
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    updateCrok(updatedCroque)
-      .unwrap()
-      .then(() => {
-        setIsEditing(false);
-      });
+
+    const data = JSON.stringify({
+      
+        "title": values.title,
+        "img": values.img,
+        "description": values.description,
+        "prix": values.prix
+    
+    });
+
+    console.log ("data", data)
+
+    updateTea(
+      { id: values.crokId, data });
+
+    // reset des champs du form
+    setValues({
+      ...values,
+      title: "",
+      img: "",
+      description: "",
+      prix: "",
+    
+    });
   };
 
+  ////////////////////////////////////////////////////////
   return (
-    <div>
-      {isEditing ? (
-        <form onSubmit={handleSubmit}>
-          <label>Titre</label>
-          <input type="text" name="title" value={updatedCroque.title} onChange={handleChange} />
-          <label>Description</label>
-          <input type="text" name="description" value={updatedCroque.description} onChange={handleChange} />
-          <label>Image</label>
-          <input type="file" name="img" accept="image/*" onChange={handleChange} />
-          <label>Prix</label>
-          <input type="text" name="prix" value={updatedCroque.prix} onChange={handleChange} />
-          <button type="submit">Enregistrer</button>
-          <button onClick={handleCancelEdit}>Annuler</button>
-        </form>
+    <div className="container">
+      {crokLoading ? (
+        <p>Loading</p>
       ) : (
-        <div>
-          <p>Titre: {croque.title}</p>
-          <p>Description: {croque.description}</p>
-          <p>Image: {croque.img}</p>
-          <p>Prix: {croque.prix}</p>
-          <button onClick={handleEditClick}>Modifier</button>
-        </div>
+        <>
+          <h2>Modification d'un thé :</h2>
+          <form
+            className={styles.form}
+            onSubmit={handleSubmit}
+            method="POST "
+            encType="multipart/form-data"
+          >
+            <label className={styles.label} htmlFor="mainTitle">
+              titre
+            </label>
+            <input
+              type="text"
+              id="mainTitle"
+              name="title"
+              value={values.title}
+              onChange={handleChange}
+            />
+            <label className={styles.label} htmlFor="subTitle">
+              sous-titre
+            </label>
+            <input
+              type="file"
+              id="subTitle"
+              name="subTitle"
+              value={values.img}
+              onChange={handleChange}
+            />
+          
+            
+            <label className={styles.label} htmlFor="description">
+              Description
+            </label>
+            <textarea
+              id="description"
+              name="description"
+              rows={8}
+              cols={5}
+              value={values.description}
+              onChange={handleChange}
+            />
+             <input
+              type="number"
+              id="subTitle"
+              name="subTitle"
+              value={values.prix}
+              onChange={handleChange}
+            />
+            <br />
+            <input type="submit" value="Validation" /> <br />
+          </form>
+        </>
       )}
     </div>
   );
 }
 
-export default EditCroqueForm;
+export default ModifyCrok;

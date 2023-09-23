@@ -4,12 +4,14 @@
 import React from 'react';
 
 import DeleteCroqueModal from './DeleteCroqueModal';
-import EditCroqueForm from "./EditCroqueForm"
+
 import Form from './AddCroqueForm';
 
 
 
 function CroqueList({data: {crok}}) {
+
+  
 
  
     return (
@@ -41,9 +43,9 @@ function CroqueList({data: {crok}}) {
                 </td>
                 <td>{c.prix}</td>
                 <td>
-                <EditCroqueForm croque={c} />
-                <DeleteCroqueModal croque={c} />
-              </td>
+                  <DeleteCroqueModal croque={c} />
+     
+    </td>
               </tr>
               )
               
