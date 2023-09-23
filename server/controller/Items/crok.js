@@ -21,7 +21,7 @@ export const all = async (req, res) => {
     try {
 
         
-        const query = "SELECT title, img, description, prix FROM crok";
+        const query = "SELECT * FROM crok";
 
         
         const [crok] = await Query.find(query);
