@@ -1,7 +1,3 @@
-
-
-
-
 import { Router } from "express";
 import crok_routes from "./routes/crok.routes.js";
 import drink_routes from "./routes/drink.routes.js";

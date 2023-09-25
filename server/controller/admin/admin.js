@@ -6,7 +6,7 @@ import pkg from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
 const {hash, compare} = pkg
-const {TOKEN_SECRET} = process.env;
+const TOKEN_SECRET = process.env.TOKEN_SECRET;
 const saltRounds = 10;
 
 const checkToken = async (req, res) => {
@@ -51,15 +51,15 @@ const signup = async (req, res) => {
 const signin = async (req, res) => {
     try {
         const {email, password} = req.body;
-        const query1 = "SELECT id, email, isAdmin, password FROM admin WHERE email = ?";
+        const query1 = "SELECT id, email, password FROM admin WHERE email = ?";
         const [user] = await Query.findByValue(query1, email);
         if(!user || (user.email !== req.body.email)){
             res.status(401).json(error("problème d'identifiant"));
             return;
-        } 
-        const isSame = await compare(password, user.password);        
-        if(isSame){
+        }
+        if(password === user.password){
             const TOKEN = jwt.sign({id: user.id}, TOKEN_SECRET );
+
             const { email } = user;
             res.status(200).json(success("Connexion réussi", {TOKEN, email}));
         } else {

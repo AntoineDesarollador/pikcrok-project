@@ -1,8 +1,17 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import useToken from "./useToken";
 
 export const crokApi = createApi({
     reducerPath: "crok",
-    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:9000/" }),
+    baseQuery: fetchBaseQuery({
+        baseUrl: "http://localhost:9000/",
+        prepareHeaders: (headers) => {
+            if (localStorage.getItem("token")) {
+                headers.set("x-access-token", `${localStorage.getItem("token")}`);
+            }
+            return headers;
+        }
+    }),
     endpoints: (builder) => ({
         getCrokCategory: builder.query({
             async queryFn(_arg, _queryApi, _extraOptions, fetchWithBQ) {
