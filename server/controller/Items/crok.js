@@ -19,11 +19,8 @@ import formidable from "formidable";
 
 export const all = async (req, res) => {
     try {
-
-        
         const query = "SELECT * FROM crok";
 
-        
         const [crok] = await Query.find(query);
         if(crok.length){
             const msg = "Récupération de tous les croks";
@@ -40,10 +37,7 @@ export const all = async (req, res) => {
 
 export const one = async (req, res) => {
     try {
-
-
         const queryCrok = "SELECT * FROM crok WHERE id = ?";
-      
 
         const crok = await Query.findByValue(queryCrok, req.params.id);
         

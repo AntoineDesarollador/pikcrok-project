@@ -1,5 +1,3 @@
-
-
 import React from 'react'
 
 
@@ -10,12 +8,8 @@ import myPdf from "../../../assets/Pdf/FLYER.pdf"
 import { NavLink } from 'react-router-dom';
 
 function Crok({data: {crok}}) {
-
-
   return (
     <>
-
-
       <section id={style.allCrok}>
         <h2>Nuestros croque-monsieur</h2>
 

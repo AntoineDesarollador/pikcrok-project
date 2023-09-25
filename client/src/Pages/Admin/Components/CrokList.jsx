@@ -3,6 +3,8 @@ import React from 'react';
 import DeleteCroqueModal from './DeleteCroqueModal';
 
 import Form from './AddCroqueForm';
+import {NavLink} from "react-router-dom";
+import style from "../../../Components/Header/Header.module.css";
 
 function CroqueList({data: {crok}}) {
     return (
@@ -33,6 +35,9 @@ function CroqueList({data: {crok}}) {
                                     </td>
                                     <td>{c.prix}</td>
                                     <td>
+                                        <button>
+                                            <NavLink  to={"/edit/" + c.id}>Modifier</NavLink>
+                                        </button>
                                         <DeleteCroqueModal croqueId={c.id}/>
                                     </td>
                                 </tr>
