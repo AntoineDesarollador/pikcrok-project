@@ -55,7 +55,6 @@ const signin = async (req, res) => {
             return;
         }
         const isSame = bcrypt.compareSync(password, user.password);
-        console.log(isSame)
         if(isSame){
             const TOKEN = jwt.sign({id: user.id}, TOKEN_SECRET );
 

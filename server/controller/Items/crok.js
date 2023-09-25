@@ -60,11 +60,18 @@ export const update = async (req, res) => {
     try {
         // Votre code pour insérer les données dans la base de données
         const query = "UPDATE crok SET title= ?, description= ?, prix= ? WHERE id= ?"
-        const { title, img, description, prix } = req.body;
+        const { title, description, prix } = req.body;
 
+        console.log(req.body, req.params.id)
+        const data = {
+            title,
+            description,
+            prix,
+            id: req.params.id
+        }
 
         // Insérez les données dans la base de données ici
-        const [result] = await Query.write(query, [req.body, req.params.id]);
+        const [result] = await Query.write(query, data);
 
         // Si l'insertion a réussi
         if (result) {
