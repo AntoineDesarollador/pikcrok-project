@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {useState} from "react";
-import {NavLink, useParams} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import {
     useGetCrokPackagingQuery,
     useUpdateCrokMutation,
@@ -8,6 +8,8 @@ import {
 import styles from "./modifyTea.module.css";
 
 function EditCroqueForm() {
+    const navigate = useNavigate();
+
     const {id} = useParams();
     const [values, setValues] = useState({
         id: 0,
@@ -54,6 +56,8 @@ function EditCroqueForm() {
             prix: formData.get("prix"),
         }
         await updateCrok(crok);
+
+        navigate("/admin")
     };
 
     ////////////////////////////////////////////////////////

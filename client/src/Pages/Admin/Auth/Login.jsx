@@ -10,7 +10,6 @@ import PropTypes from "prop-types";
 export default function Login({ setToken }) {
     const navigate = useNavigate();
 
-
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
 
