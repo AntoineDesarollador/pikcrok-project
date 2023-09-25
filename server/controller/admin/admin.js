@@ -1,13 +1,11 @@
-
-
 import { success, error } from "../../helper/index.js";
 import Query from "../../model/query.js";
-import pkg from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
-const {hash, compare} = pkg
+import bcrypt from 'bcrypt';
+
 const TOKEN_SECRET = process.env.TOKEN_SECRET;
-const saltRounds = 10;
+const saltRounds = 9;
 
 const checkToken = async (req, res) => {
     try {
@@ -35,14 +33,13 @@ const signup = async (req, res) => {
         const [isUserExist] = await Query.findByValue(query, req.body.email);
 
         if(!isUserExist){
-            const hashedPWD = await hash(req.body.password, saltRounds);
+            const hashedPWD = bcrypt.hashSync(req.body.password, saltRounds);
             const email = req.body.email
             const query = "INSERT INTO admin (email, isAdmin, password) VALUES (?,?,?)";
             const result = await Query.write(query, {email, hashedPWD});
             
             res.status(201).json(success("utilisateur créé !", result));
         }
-        
     } catch (error) {
         throw Error(error);
     }
@@ -57,7 +54,9 @@ const signin = async (req, res) => {
             res.status(401).json(error("problème d'identifiant"));
             return;
         }
-        if(password === user.password){
+        const isSame = bcrypt.compareSync(password, user.password);
+        console.log(isSame)
+        if(isSame){
             const TOKEN = jwt.sign({id: user.id}, TOKEN_SECRET );
 
             const { email } = user;

@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 8.0.33)
 # Database: pikcrok
-# Generation Time: 2023-09-25 15:43:53 +0000
+# Generation Time: 2023-09-25 16:39:49 +0000
 # ************************************************************
 
 
@@ -37,7 +37,7 @@ LOCK TABLES `admin` WRITE;
 
 INSERT INTO `admin` (`id`, `email`, `password`)
 VALUES
-	(1,'admin@admin.test','password');
+	(1,'admin@admin.test','$2a$09$lskGiIGGwZbFuc2YpUllsO0i1rvwrPMDmGYlhrdHu7.tYSFDR5eM.');
 
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
