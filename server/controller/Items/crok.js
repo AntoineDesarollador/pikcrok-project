@@ -58,26 +58,27 @@ export const one = async (req, res) => {
 
 export const update = async (req, res) => {
     try {
+        // Votre code pour insérer les données dans la base de données
+        const query = "UPDATE crok SET title= ?, description= ?, prix= ? WHERE id= ?"
+        const { title, img, description, prix } = req.body;
 
-        const query = "UPDATE crok SET title= ?, img= ?, description= ?, prix= ? WHERE id= ?"
 
-        const id = req.params.id
-        const crokUpdated = {...req.body, id}
-        const [result] = await Query.write(query, crokUpdated)
+        // Insérez les données dans la base de données ici
+        const [result] = await Query.write(query, [req.body, req.params.id]);
 
-        
-
-        if(result){
-            const msg = "Catégorie modifiée.";
-            res.json(success(msg, crokUpdated));
-
-        } else throw Error("Catégorie non modifiée, probable erreur de syntaxe dans l'objet.");
-        
+        // Si l'insertion a réussi
+        if (result) {
+            const msg = "crok modifié";
+            res.status(201).json(success(msg, data));
+        } else {
+            console.error("Erreur lors de l'insertion dans la base de données.");
+            res.status(500).json(error("Erreur lors de l'insertion dans la base de données"));
+        }
     } catch (err) {
-        throw Error(err);
+        console.error("Erreur générale :", err);
+        res.status(500).json(error("Une erreur est survenue"));
     }
 }
-
 
 export const removeCrok = async (req, res) => {
     try {

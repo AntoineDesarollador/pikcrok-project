@@ -10,13 +10,12 @@ import styles from "./modifyTea.module.css";
 function EditCroqueForm() {
     const {id} = useParams();
     const [values, setValues] = useState({
-        crokId: 0,
+        id: 0,
         title: "",
         img: "",
         description: "",
         prix: 0,
     });
-    console.log("id", id)
 
     // on recupère le thé à modifier
     const {data: crok, isLoading: crokLoading} = useGetCrokPackagingQuery(id);
@@ -27,8 +26,7 @@ function EditCroqueForm() {
     useEffect(() => {
         if (!crokLoading) {
             setValues({
-                ...values,
-                crokId: crok.result.id,
+                id: crok.result.id,
                 title: crok.result.title,
                 img: crok.result.img,
                 description: crok.result.description,
@@ -46,23 +44,16 @@ function EditCroqueForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const data = JSON.stringify({
-            "title": values.title,
-            "img": values.img,
-            "description": values.description,
-            "prix": values.prix
-        });
-
-        updateCrok({id: values.crokId, data});
-
-        // reset des champs du form
-        setValues({
-            ...values,
-            title: "",
-            img: "",
-            description: "",
-            prix: "",
-        });
+        let files = e.target.files;
+        console.log(files)
+        const formData = new FormData(e.target);
+        const crok = {
+            id: values.id,
+            title: formData.get("title"),
+            description: formData.get("description"),
+            prix: formData.get("prix"),
+        }
+        await updateCrok(crok);
     };
 
     ////////////////////////////////////////////////////////
@@ -91,7 +82,7 @@ function EditCroqueForm() {
                                 onChange={handleChange}
                             />
                         </div>
-                        <div>
+                        {/*<div>
                             <label className={styles.label} htmlFor="image">
                                 Image
                             </label>
@@ -102,7 +93,7 @@ function EditCroqueForm() {
                                 name="image"
                                 onChange={handleChange}
                             />
-                        </div>
+                        </div>*/}
 
                         <div>
                             <div>
@@ -119,13 +110,13 @@ function EditCroqueForm() {
                             />
                         </div>
                         <div>
-                            <label className={styles.label} htmlFor="price">
+                            <label className={styles.label} htmlFor="prix">
                                 Prix
                             </label>
                             <input
                                 type="number"
-                                id="price"
-                                name="price"
+                                id="prix"
+                                name="prix"
                                 value={values.prix}
                                 onChange={handleChange}
                             />

@@ -36,11 +36,13 @@ export const crokApi = createApi({
         }),
         
         updateCrok: builder.mutation({
-            query: (id) => ({
+            query: ({id, ...payload}) => ({
                 url: `/crok/${id}`,
                 method: "put",
+                body: payload,
             }),
             invalidatesTags: ["crokUpdated"],
+
         }),
         deleteCrok: builder.mutation({
             query: (id) => ({

@@ -10,10 +10,7 @@ function Form() {
     const submitHandler = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
-        console.log(formData);
         await addCrok(formData);
-
-
     };
 
     return (

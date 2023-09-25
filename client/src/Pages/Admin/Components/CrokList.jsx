@@ -36,7 +36,7 @@ function CroqueList({data: {crok}}) {
                                     <td>{c.prix}</td>
                                     <td>
                                         <button>
-                                            <NavLink  to={"/edit/" + c.id}>Modifier</NavLink>
+                                            <NavLink  to={"/admin/edit/" + c.id}>Modifier</NavLink>
                                         </button>
                                         <DeleteCroqueModal croqueId={c.id}/>
                                     </td>

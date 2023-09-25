@@ -17,7 +17,6 @@ function DeleteCroqueModal(props) {
     const handleConfirmDelete = async (e) => {
         e.preventDefault();
         try {
-            console.log(props.croqueId)
             await deleteCrok(props.croqueId);
         } catch (error) {
             console.error('Erreur lors de la suppression du croque-monsieur :', error);

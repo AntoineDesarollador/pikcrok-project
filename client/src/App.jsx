@@ -25,7 +25,7 @@ function App() {
             {location === "/" ? <Feed/> : null}
             <Routes>
                 <Route path='admin' element={<HOC child={CroqueList} />}/>
-                <Route path='edit/:id' element={<EditCroqueForm />}/>
+                <Route path='admin/edit/:id' element={<EditCroqueForm />}/>
                 <Route path='about' element={<Us />}/>
                 <Route path='blog' element={<ArticleOne />}/>
                 <Route exact path='/' element={<HOC child={Crok} />}/>
